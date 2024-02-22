@@ -1,0 +1,25 @@
+CXX = g++
+CXXFLAGS = -g -std=c++17 -Wall
+LDFLAGS =
+
+USER_SOURCES = user.cpp
+USER_OBJECTS = $(USER_SOURCES:.cpp=.o)
+USER_EXECUTABLE = user
+
+AS_SOURCES = AS.cpp
+AS_OBJECTS = $(AS_SOURCES:.cpp=.o)
+AS_EXECUTABLE = AS
+
+all: $(USER_EXECUTABLE) $(AS_EXECUTABLE)
+
+$(USER_EXECUTABLE): $(USER_OBJECTS)
+	$(CXX) $(LDFLAGS) $(USER_OBJECTS) -o $@
+
+$(AS_EXECUTABLE): $(AS_OBJECTS)
+	$(CXX) $(LDFLAGS) $(AS_OBJECTS) -o $@
+
+%.o: %.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+clean:
+	rm -f $(USER_OBJECTS) $(AS_OBJECTS) $(USER_EXECUTABLE) $(AS_EXECUTABLE)
